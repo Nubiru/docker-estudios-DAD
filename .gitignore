@@ -1,0 +1,12 @@
+# Material de referencia clonado del repo del profesor — no es parte de este proyecto
+docker-tutorial/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Editores
+.vscode/
+.idea/
+*.swp
+*~
