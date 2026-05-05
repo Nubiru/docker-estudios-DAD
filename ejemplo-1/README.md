@@ -147,14 +147,11 @@ curl http://localhost:8080
 ### 2. Contenedor en ejecución y sitio respondiendo
 ![Sitio inicial](screenshots/02-sitio-inicial.png)
 
-### 3. Error de `apt-get` con la imagen base antigua
-![Error apt stretch EOL](screenshots/03-error-apt.png)
+### 3. Instalación de vim dentro del contenedor
+![Instalación vim](screenshots/03-install-vim.png)
 
-### 4. Instalación de vim tras actualizar la imagen base
-![Instalación vim](screenshots/04-install-vim.png)
+### 4. Edición de `index.html` con vi
+![Edición con vi](screenshots/04-vi-edit.png)
 
-### 5. Edición de `index.html` con vi
-![Edición con vi](screenshots/05-vi-edit.png)
-
-### 6. Resultado final en el navegador
-![Resultado final](screenshots/06-resultado.png)
+### 5. Resultado final en el navegador
+![Resultado final](screenshots/05-resultado.png)
