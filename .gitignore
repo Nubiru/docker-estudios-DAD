@@ -1,6 +1,10 @@
 # Material de referencia clonado del repo del profesor — no es parte de este proyecto
 docker-tutorial/
 
+# Contenido del bind mount de WordPress (core de terceros generado por el
+# contenedor, ~3000 archivos). No es trabajo propio; se documenta en los README.
+ejemplo-*/wordpress/
+
 # Sistema operativo
 .DS_Store
 Thumbs.db
