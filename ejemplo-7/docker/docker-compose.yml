@@ -1,0 +1,66 @@
+# Indicamos la versión
+version: '3.7'
+
+# Iniciamos los servicios
+services:
+  # PHP
+  php7:
+    container_name: php7
+    build: ./php
+    volumes:
+      - ../config/php:/usr/local/etc/php
+      - ../code/myapp:/var/www/html/myapp
+    depends_on:
+      - mariadb
+    networks:
+      - lemp-network
+
+  # NGINX
+  nginx:
+    container_name: nginx
+    image: nginx
+    ports:
+      - 8080:80
+    volumes:
+      - ../config/nginx:/etc/nginx/conf.d
+      - ../code/myapp:/var/www/html/myapp
+      - ../logs:/var/log/nginx
+    depends_on:
+      - php7
+    networks:
+      - lemp-network
+
+  # MARIADB
+  mariadb:
+    container_name: mariadb
+    image: mariadb:latest
+    volumes:
+      - ../mariadb/data:/var/lib/mysql
+      # El SQL de inicialización se ejecuta SOLO la primera vez (cuando data está vacío)
+      - ../mariadb/sql:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=docker_sample
+    ports:
+      - 3306:3306
+    networks:
+      - lemp-network
+
+  # PHPMYADMIN
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      - PMA_HOST=mariadb
+      - PMA_PORT=3306
+    depends_on:
+      - mariadb
+    ports:
+      - 8081:80
+    networks:
+      - lemp-network
+
+# Si queremos que tengan una red propia a otros contenedores
+networks:
+  lemp-network:
+    driver: bridge

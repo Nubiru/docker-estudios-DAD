@@ -27,6 +27,7 @@ podman --version
 | [`ejemplo-2/`](./ejemplo-2/) | Interpretación y ejecución manual de `run.sh` (WordPress + MariaDB con `--link` legacy) | ✅ Completado |
 | [`ejemplo-3/`](./ejemplo-3/) | WordPress + MariaDB con red propia, volúmenes con nombre y bind mounts (multi-contenedor) | ✅ Completado |
 | [`ejemplo-4/`](./ejemplo-4/) | Mismo stack que el Ejemplo 3 pero declarado con Docker Compose (`docker-compose.yaml`) | ✅ Completado |
+| [`ejemplo-7/`](./ejemplo-7/) | Pila LEMP con Compose: Nginx + PHP-FPM (contenedores separados, FastCGI) + MariaDB (con seed `init-db.sql`) + phpMyAdmin | ✅ Completado |
 
 Cada carpeta `ejemplo-N/` contiene su propio `README.md` con el detalle del ejercicio, los errores encontrados, las decisiones tomadas y las capturas de pantalla.
 
@@ -48,8 +49,14 @@ docker/
 ├── ejemplo-3/          WordPress + MariaDB con red propia y volúmenes
 │   ├── README.md
 │   └── wordpress/
-└── ejemplo-4/          Mismo stack con Docker Compose
+├── ejemplo-4/          Mismo stack con Docker Compose
+│   ├── README.md
+│   ├── docker-compose.yaml
+│   └── wordpress/
+└── ejemplo-7/          Pila LEMP (Nginx + PHP-FPM + MariaDB + phpMyAdmin)
     ├── README.md
-    ├── docker-compose.yaml
-    └── wordpress/
+    ├── code/myapp/     app PHP (index.php)
+    ├── config/         configs de nginx y php
+    ├── mariadb/sql/    init-db.sql (seed de la BD)
+    └── docker/         docker-compose.yml, Dockerfile de PHP y scripts .sh
 ```

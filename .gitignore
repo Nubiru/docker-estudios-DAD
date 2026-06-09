@@ -5,6 +5,11 @@ docker-tutorial/
 # contenedor, ~3000 archivos). No es trabajo propio; se documenta en los README.
 ejemplo-*/wordpress/
 
+# Datos de MariaDB y logs de Nginx generados por los contenedores (Ejemplo 7).
+# Son estado de runtime, no trabajo propio.
+ejemplo-*/mariadb/data/
+ejemplo-*/logs/
+
 # Sistema operativo
 .DS_Store
 Thumbs.db
