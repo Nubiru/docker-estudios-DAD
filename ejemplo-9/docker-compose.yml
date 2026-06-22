@@ -1,0 +1,51 @@
+# Sin clave 'version:' — es obsoleta en Compose v2 / podman-compose y solo
+# generaba un warning. El esquema actual no la necesita.
+
+services:
+  # Proxy inverso Nginx: única puerta de entrada desde el host.
+  #   :8080 -> sitio Nginx (site1)
+  #   :8081 -> sitio Apache (site2)
+  reverseproxy:
+    build: ./reverse
+    container_name: reverseproxy
+    ports:
+      - 8080:8080
+      - 8081:8081
+    networks:
+      - mi-red
+    # CORRECCIÓN: el proxy debe arrancar DESPUÉS de los backends. Nginx
+    # resuelve los nombres de 'upstream' al cargar la config y aborta si no
+    # existen ("host not found in upstream"). En el original el depends_on
+    # estaba invertido (nginx/apache dependían del proxy), así que el proxy
+    # arrancaba primero, fallaba, y solo se recuperaba por 'restart: always'.
+    depends_on:
+      - nginx
+      - apache
+    restart: always
+
+  # Backend 1: sitio estático servido por Nginx.
+  nginx:
+    # image: nginx:alpine
+    build: ./site1
+    container_name: nginx
+    # Para desarrollo se podría montar el código en vez de copiarlo en el build:
+    # volumes:
+    #   - ./site1/src/.:/usr/share/nginx/html/
+    networks:
+      - mi-red
+    restart: always
+
+  # Backend 2: sitio estático servido por Apache (httpd).
+  apache:
+    # image: httpd:alpine
+    build: ./site2
+    container_name: apache
+    # volumes:
+    #   - ./site2/src/.:/usr/local/apache2/htdocs/
+    networks:
+      - mi-red
+    restart: always
+
+networks:
+  mi-red:
+    driver: bridge
